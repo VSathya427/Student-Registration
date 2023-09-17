@@ -1,5 +1,7 @@
 package studentCoursesMgmt.driver;
 
+import studentCoursesMgmt.util.FileProcessor;
+
 /**
  * @author placeholder
  *
@@ -19,7 +21,9 @@ public class Driver {
 			System.err.println("Error: Incorrect number of arguments. Program accepts 5 argumnets.");
 			System.exit(0);
 		}
-		
+		System.out.println("Hello :" +args[0]);
+		FileProcessor obj = new FileProcessor();
+		obj.readcoursePrefs(args[0]);
 		System.out.println("Hello World! Lets get started with the assignment");
 
 	}
