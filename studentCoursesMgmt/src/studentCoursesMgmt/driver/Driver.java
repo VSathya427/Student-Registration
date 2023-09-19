@@ -3,8 +3,9 @@ package studentCoursesMgmt.driver;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
-import studentCoursesMgmt.util.FileProcessor;
-
+import studentCoursesMgmt.util.ReadFile;
+import studentCoursesMgmt.util.ReadCoursePrefs;
+import studentCoursesMgmt.util.ReadCourseInfo;
 /**
  * @author placeholder
  *
@@ -25,11 +26,11 @@ public class Driver {
 			System.exit(0);
 		}
 		System.out.println("Hello :" +args[0]);
-		FileProcessor obj = new FileProcessor();
+		ReadFile obj = new ReadCoursePrefs();
 		try{
-			obj.readcoursePrefs(args[0],args[4]);
+			obj.readFile(args[0],args[4]);
 		}catch(FileNotFoundException e){
-			PrintStream printStream = new PrintStream(args[4]);
+			 PrintStream printStream = new PrintStream(args[4]);
              System.setErr(printStream);
 			 System.err.println("Error in reading Error file");
              e.printStackTrace();
