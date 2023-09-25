@@ -5,6 +5,7 @@ import java.io.PrintStream;
 
 import studentCoursesMgmt.util.ReadFile;
 import studentCoursesMgmt.util.ReadCoursePrefs;
+import studentCoursesMgmt.util.CourseInfo;
 import studentCoursesMgmt.util.ReadCourseInfo;
 /**
  * @author placeholder
@@ -27,8 +28,10 @@ public class Driver {
 		}
 		System.out.println("Hello :" +args[0]);
 		ReadFile obj = new ReadCoursePrefs();
+		ReadFile obj2 = new ReadCourseInfo();
 		try{
 			obj.readFile(args[0],args[4]);
+			obj2.readFile(args[1],args[4]);
 		}catch(FileNotFoundException e){
 			 PrintStream printStream = new PrintStream(args[4]);
              System.setErr(printStream);
