@@ -2,8 +2,11 @@ package studentCoursesMgmt.driver;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.List;
 
 import studentCoursesMgmt.util.ReadFile;
+import studentCoursesMgmt.util.StudentMgmt;
 import studentCoursesMgmt.util.ReadCoursePrefs;
 import studentCoursesMgmt.util.CourseInfo;
 import studentCoursesMgmt.util.ReadCourseInfo;
@@ -27,11 +30,15 @@ public class Driver {
 			System.exit(0);
 		}
 		System.out.println("Hello :" +args[0]);
-		ReadFile obj = new ReadCoursePrefs();
-		ReadFile obj2 = new ReadCourseInfo();
+		ReadFile<Integer,List<String>,List<String>> obj = new ReadCoursePrefs();
+		ReadFile<String,CourseInfo,CourseInfo> obj2 = new ReadCourseInfo();
+		StudentMgmt object = new StudentMgmt();
 		try{
-			obj.readFile(args[0],args[4]);
-			obj2.readFile(args[1],args[4]);
+			// obj.readFile(args[0],args[4]);
+			// obj2.readFile(args[1],args[4]);
+			HashMap<String,CourseInfo> info =  obj2.readFile(args[1], args[4]);
+			HashMap<Integer,List<String>> prefs = obj.readFile(args[0], args[4]);
+			object.scheduleCourse(info,prefs);
 		}catch(FileNotFoundException e){
 			 PrintStream printStream = new PrintStream(args[4]);
              System.setErr(printStream);

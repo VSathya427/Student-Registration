@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 //import studentCoursesMgmt.util.CourseInfo;
 
-public class ReadCourseInfo implements ReadFile<String,CourseInfo> {
+public class ReadCourseInfo implements ReadFile<String,CourseInfo,CourseInfo> {
     
     public HashMap<String,CourseInfo> readFile(String file,String errFile)throws FileNotFoundException{
         HashMap<String,CourseInfo> info = new HashMap<String,CourseInfo>();
@@ -17,7 +17,7 @@ public class ReadCourseInfo implements ReadFile<String,CourseInfo> {
             while(reader1.hasNextLine()){
                 String s = reader1.nextLine();
                 String[] data= s.split(":");
-                info.put(data[0],processCourseInfo(data));
+                info.put(data[0],processFile(data));
             }
             reader1.close();
         }
@@ -31,7 +31,7 @@ public class ReadCourseInfo implements ReadFile<String,CourseInfo> {
         System.out.println("CourseInfo : " + info);
         return info;
     }
-    public CourseInfo processCourseInfo(String[] line){
+    public CourseInfo processFile(String[] line){
         CourseInfo ci=new CourseInfo();
         ci.setCapacity(Integer.parseInt(line[1]));
         ci.setTime(Integer.parseInt(line[2]));
