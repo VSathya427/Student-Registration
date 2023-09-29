@@ -2,7 +2,6 @@ package studentCoursesMgmt.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,16 +30,13 @@ public class ReadCoursePrefs implements ReadFile<Integer,List<String>,List<Strin
         }
         catch(FileNotFoundException e){
             System.err.println("Error in reading coursePrefs File. For Stack Trace check errorLog.txt");
-            PrintStream printStream = new PrintStream(errFile);
-            System.setErr(printStream);
-            e.printStackTrace();
+            FileProcessor.writeErrorToFile(errFile,e);
             System.exit(0);
         }
         System.out.println("CoursePrefs : "+data);
         return data;
     }
     public List<String> processFile(String[] s){
-        //String[] s = line.split(" ");
         String[] prefs = new String[9];
         List<String> courses = new ArrayList<>();
         int j=0;

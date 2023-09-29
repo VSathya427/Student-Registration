@@ -1,17 +1,19 @@
 package studentCoursesMgmt.driver;
 
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import studentCoursesMgmt.util.ReadFile;
+import studentCoursesMgmt.util.Results;
 import studentCoursesMgmt.util.StudentMgmt;
 import studentCoursesMgmt.util.ReadCoursePrefs;
 import studentCoursesMgmt.util.CourseInfo;
 import studentCoursesMgmt.util.ReadCourseInfo;
+import studentCoursesMgmt.util.FileProcessor;
 /**
- * @author placeholder
+ * @author Sathya Vemulapalli
  *
  */
 public class Driver {
@@ -29,23 +31,16 @@ public class Driver {
 			System.err.println("Error: Incorrect number of arguments. Program accepts 5 argumnets.");
 			System.exit(0);
 		}
-		System.out.println("Hello :" +args[0]);
+		FileProcessor.cleanFile(args[4]);
+		FileProcessor.cleanFile(args[3]);
+		FileProcessor.cleanFile(args[2]);
 		ReadFile<Integer,List<String>,List<String>> obj = new ReadCoursePrefs();
 		ReadFile<String,CourseInfo,CourseInfo> obj2 = new ReadCourseInfo();
 		StudentMgmt object = new StudentMgmt();
-		try{
-			// obj.readFile(args[0],args[4]);
-			// obj2.readFile(args[1],args[4]);
-			HashMap<String,CourseInfo> info =  obj2.readFile(args[1], args[4]);
-			HashMap<Integer,List<String>> prefs = obj.readFile(args[0], args[4]);
-			object.scheduleCourse(info,prefs);
-		}catch(FileNotFoundException e){
-			 PrintStream printStream = new PrintStream(args[4]);
-             System.setErr(printStream);
-			 System.err.println("Error in reading Error file");
-             e.printStackTrace();
-		}
-		System.out.println("Hello World! Lets get started with the assignment");
-
+		Results res = new Results();
+		HashMap<String,CourseInfo> info =  obj2.readFile(args[1], args[4]);
+		HashMap<Integer,List<String>> prefs = obj.readFile(args[0], args[4]);
+		HashMap<Integer,Set<String>> schedule = object.scheduleCourse(info,prefs,args[3],args[4]);
+		res.processOutput(schedule, args[2]);
 	}
 }

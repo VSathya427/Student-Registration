@@ -1,0 +1,3 @@
+333 : F : E : D :: Satisfaction Rating = 7.33 
+222 : F : E : D :: Satisfaction Rating = 8.00 
+111 : D : C : B :: Satisfaction Rating = 7.67 
