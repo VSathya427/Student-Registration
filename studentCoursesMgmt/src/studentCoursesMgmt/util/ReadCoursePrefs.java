@@ -8,34 +8,33 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ReadCoursePrefs implements ReadFile<Integer,List<String>,List<String>>{
+    //method to readcourseprefs file and store it in a hashmap.
     public HashMap<Integer,List<String>> readFile(String file,String errFile)throws FileNotFoundException{
         HashMap<Integer,List<String>> data = new HashMap<Integer,List<String>>();    
         try{
-            int linecount = 0;
             File f1 = new File(file);
             Scanner reader1 = new Scanner(f1);
             while(reader1.hasNextLine()){
-                String[] s = reader1.nextLine().split(" ");
+                String[] s = FileProcessor.readLine(reader1).split(" ");
                 List<String> pref = processFile(s);
-                //System.out.println(reader1.nextLine());
                 int id = Integer.parseInt(s[0]);
                 data.put(id,pref);
-                linecount++;
-                if(linecount == 5){
-                    data.clear();
-
-                }
             }
             reader1.close();
         }
         catch(FileNotFoundException e){
-            System.err.println("Error in reading coursePrefs File. For Stack Trace check errorLog.txt");
+            System.err.println("Error in reading course preferences File. For Stack Trace check errorLog.txt");
             FileProcessor.writeErrorToFile(errFile,e);
             System.exit(0);
         }
-        System.out.println("CoursePrefs : "+data);
+        catch (Exception e) {
+            System.err.println( "Error in coursePrefs input format. Format input and run code again. For Stack Trace check errorLog.txt");
+            FileProcessor.writeErrorToFile(errFile, e);
+            System.exit(0);
+        }
         return data;
     }
+    //method to process the file and return a list of preferences
     public List<String> processFile(String[] s){
         String[] prefs = new String[9];
         List<String> courses = new ArrayList<>();

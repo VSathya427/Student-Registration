@@ -41,6 +41,6 @@ public class Driver {
 		HashMap<String,CourseInfo> info =  obj2.readFile(args[1], args[4]);
 		HashMap<Integer,List<String>> prefs = obj.readFile(args[0], args[4]);
 		HashMap<Integer,Set<String>> schedule = object.scheduleCourse(info,prefs,args[3],args[4]);
-		res.processOutput(schedule, args[2]);
+		res.processOutput(schedule, args[2],0);
 	}
 }

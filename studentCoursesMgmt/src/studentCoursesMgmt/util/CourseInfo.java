@@ -1,5 +1,8 @@
 package studentCoursesMgmt.util;
-
+/**
+ * Class to store and access the capacity and time slots 
+ * for all the courses using getters and setters.
+ */
 public class CourseInfo {
     int capacity=0;
     int time = 0;

@@ -1,3 +1,4 @@
-333 : F : E : D :: Satisfaction Rating = 7.33 
-222 : F : E : D :: Satisfaction Rating = 8.00 
-111 : D : C : B :: Satisfaction Rating = 7.67 
+333 : F : E : D :: SatisfactionRating = 7.33 
+222 : F : E : D :: SatisfactionRating = 8.00 
+111 : D : C : B :: SatisfactionRating = 7.67 
+AverageSatisfactionRating= 7.67 
