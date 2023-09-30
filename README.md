@@ -1,11 +1,10 @@
 # CS542: Assignment 1
 ## Name: Sathya Vemulapalli
 
-I'll take 1 slack day
+I'll take 2 slack days
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
-
 
 Following are the commands and the instructions to run ANT on your project.
 #### Note: build.xml is present in studentCoursesMgmt/src folder.
