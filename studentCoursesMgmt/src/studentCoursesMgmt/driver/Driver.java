@@ -2,8 +2,6 @@ package studentCoursesMgmt.driver;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 import studentCoursesMgmt.util.ReadFile;
 import studentCoursesMgmt.util.Results;
@@ -34,13 +32,20 @@ public class Driver {
 		FileProcessor.cleanFile(args[4]);
 		FileProcessor.cleanFile(args[3]);
 		FileProcessor.cleanFile(args[2]);
-		ReadFile<Integer,List<String>,List<String>> obj = new ReadCoursePrefs();
-		ReadFile<String,CourseInfo,CourseInfo> obj2 = new ReadCourseInfo();
-		StudentMgmt object = new StudentMgmt();
+
+		// ReadFile<Integer,List<String>,List<String>> rcp = new ReadCoursePrefs();
+
+		ReadFile<String,CourseInfo,CourseInfo> rci = new ReadCourseInfo();
+
+		// StudentMgmt sm = new StudentMgmt();
+
 		Results res = new Results();
-		HashMap<String,CourseInfo> info =  obj2.readFile(args[1], args[4]);
-		HashMap<Integer,List<String>> prefs = obj.readFile(args[0], args[4]);
-		HashMap<Integer,Set<String>> schedule = object.scheduleCourse(info,prefs,args[3],args[4]);
-		res.processOutput(schedule, args[2],0);
+		HashMap<String,CourseInfo> info =  rci.readFile(args[1], args[4]);
+
+		// HashMap<Integer,List<String>> prefs = rcp.readFile(args[0], args[4]);
+		// HashMap<Integer,Set<String>> schedule = sm.scheduleCourse(info,prefs,args[3],args[4]);
+		// res.processOutput(schedule, args[2],0);
+
+		res.fiveLine(info, args[0],args[2], args[3], args[4]);
 	}
 }

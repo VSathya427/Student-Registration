@@ -19,6 +19,7 @@ import java.util.Set;
  */
 
 public class StudentMgmt {
+    int cc=0;
     /**
      * This methdod does all the main computing to Schedule courses
      * @param courses This is the first parameter which stores availeble courses information
@@ -29,6 +30,7 @@ public class StudentMgmt {
      */
     public HashMap<Integer,Set<String>> scheduleCourse(HashMap<String,CourseInfo> courses,HashMap<Integer,List<String>> prefs, String conflFile,String errFile){
         HashMap<Integer,Set<String>> register = new HashMap<>();
+        int cd=0;
         for (Map.Entry<Integer, List<String>> student : prefs.entrySet()) {
             int id = student.getKey();
             List<String> pref = student.getValue();
@@ -40,23 +42,29 @@ public class StudentMgmt {
                     courses.get(c).setCapacity(cap-1);
                 }
                 if (cap == 0) {
-                    System.err.println("Course " + c + " is out of capacity");
                     assigned.add("NA");
-                    if(allCapacityNull(pref, courses)){
+                    if(allCapacityNull(pref, courses) || !checkTimeConflict(assigned, c, courses, conflFile, errFile, id)){
                         assigned.add("NAA");
                     }
-                    if(allCapacityNull(pref, courses)&&assigned.contains("NAA")){
+                    if(allCapacityNull(pref, courses)&&assigned.contains("NAA")|| !checkTimeConflict(assigned, c, courses, conflFile, errFile, id)){
                         assigned.add("NAAA");
                     }
                 }
+                System.err.println(id+" SIZE : "+assigned.size());
+                System.err.println("assigned :"+assigned);
                 if(assigned.size()==3){
                     assigned.add(String.valueOf(calculateSatisfaction(assigned,pref)));
+                    cc++;
+                    cd++;
                     register.put(id,assigned);
                     break;
                 }
             }
         }
         System.out.println(register);
+        System.err.println("CAP:"+cc);
+        System.err.println("CAPd:"+cd);
+        
         return register;
     } 
     /**
