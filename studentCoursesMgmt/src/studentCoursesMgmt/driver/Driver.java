@@ -3,13 +3,11 @@ package studentCoursesMgmt.driver;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+import studentCoursesMgmt.util.CourseInfo;
+import studentCoursesMgmt.util.FileProcessor;
+import studentCoursesMgmt.util.ReadCourseInfo;
 import studentCoursesMgmt.util.ReadFile;
 import studentCoursesMgmt.util.Results;
-import studentCoursesMgmt.util.StudentMgmt;
-import studentCoursesMgmt.util.ReadCoursePrefs;
-import studentCoursesMgmt.util.CourseInfo;
-import studentCoursesMgmt.util.ReadCourseInfo;
-import studentCoursesMgmt.util.FileProcessor;
 /**
  * @author Sathya Vemulapalli
  *
@@ -29,23 +27,33 @@ public class Driver {
 			System.err.println("Error: Incorrect number of arguments. Program accepts 5 argumnets.");
 			System.exit(0);
 		}
-		FileProcessor.cleanFile(args[4]);
-		FileProcessor.cleanFile(args[3]);
-		FileProcessor.cleanFile(args[2]);
+		String coursePrefs = args[0];
+		String courseInfo = args[1];
+		String regResults = args[2];
+		String conflictFile = args[3];
+		String errorFile = args[4];
+		FileProcessor.cleanFile(errorFile);
+		FileProcessor.cleanFile(conflictFile);
+		FileProcessor.cleanFile(regResults);
 
+		//Uncomment line below for line by line
 		// ReadFile<Integer,List<String>,List<String>> rcp = new ReadCoursePrefs();
 
 		ReadFile<String,CourseInfo,CourseInfo> rci = new ReadCourseInfo();
 
+		//Uncomment line below for line by line
 		// StudentMgmt sm = new StudentMgmt();
 
 		Results res = new Results();
-		HashMap<String,CourseInfo> info =  rci.readFile(args[1], args[4]);
+		HashMap<String,CourseInfo> info =  rci.readFile(courseInfo, errorFile);
 
-		// HashMap<Integer,List<String>> prefs = rcp.readFile(args[0], args[4]);
-		// HashMap<Integer,Set<String>> schedule = sm.scheduleCourse(info,prefs,args[3],args[4]);
-		// res.processOutput(schedule, args[2],0);
+		//Uncomment three lines below for line by line
+		// HashMap<Integer,List<String>> prefs = rcp.readFile(coursePrefs, errorFile);
+		// HashMap<Integer,Set<String>> schedule = sm.scheduleCourse(info,prefs,conflictFile,errorFile);
+		// res.processOutput(schedule, regResults,0);
 
-		res.fiveLine(info, args[0],args[2], args[3], args[4]);
+		System.out.println("Output Written to "+regResults+" file.");
+		//Comment line below when line by line used
+		res.fiveLine(info, coursePrefs,regResults, conflictFile, errorFile);
 	}
 }

@@ -60,17 +60,18 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
     //Method to redirect output to File.
     public void redirectToFile(int id, String[] course,double satisfaction, String File){       
         PrintStream ps = FileProcessor.writeOutputToFile(File);
-        System.out.print(id+" : "+course[2]+" : "+course[1]+" : "+course[0]+" :: "+"SatisfactionRating = ");
+        System.out.print(id+" : "+course[2]+" , "+course[1]+" , "+course[0]+" :: "+"SatisfactionRating = ");
         System.out.printf("%.2f ",satisfaction);
         System.out.println();
         ps.close();
     }
     //Method to redirect output to stdout.
     public void stdOUT(int id, String[] course,double satisfaction){
-        System.out.print(id+" : "+course[2]+" : "+course[1]+" : "+course[0]+" :: "+"Satisfaction Rating = ");
+        System.out.print(id+" : "+course[2]+" , "+course[1]+" z "+course[0]+" :: "+"Satisfaction Rating = ");
         System.out.printf("%.2f ",satisfaction);
         System.out.println();
     }
+    //Method to printsatisfactionrating.
     public void printSatisfaction(String File){
         PrintStream ps = FileProcessor.writeOutputToFile(File);
         double calc = averageSatisfaction / count;
@@ -79,7 +80,8 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
         }
         ps.close();
     }
-     public void fiveLine(HashMap<String,CourseInfo> info, String file,String resFile, String confFile, String errFile){
+    //Method to process five lines at a time.
+    public void fiveLine(HashMap<String,CourseInfo> info, String file,String resFile, String confFile, String errFile){
         HashMap<Integer, List<String>> data = new HashMap<Integer, List<String>>(); 
         try{
             File f1 = new File(file);
@@ -91,8 +93,10 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
                 String[] s = FileProcessor.readLine(reader1).split(" ");
                 List<String> pref = rcp.processFile(s);
                 int id = Integer.parseInt(s[0]);
+                if(id<100 || id>999){
+                    throw new BoundaryConditionCheckException("Student Id should be between 100 and 999");
+                }
                 data.put(id,pref);
-                System.err.println(data);
                 if(linecount == 5){
                     HashMap<Integer, Set<String>> schedule = sm.scheduleCourse(info, data, confFile,errFile ); 
                     processOutput(schedule, resFile, 0);

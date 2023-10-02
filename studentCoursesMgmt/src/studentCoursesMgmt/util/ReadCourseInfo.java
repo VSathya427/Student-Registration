@@ -17,7 +17,19 @@ public class ReadCourseInfo implements ReadFile<String,CourseInfo,CourseInfo> {
             while(reader1.hasNextLine()){
                 String s = FileProcessor.readLine(reader1);
                 String[] data= s.split(":");
+                if(!(data[0].charAt(0)>='A' && data[0].charAt(0)<='I')){
+                    throw new BoundaryConditionCheckException("Letter Should be Between A and I");
+                }
+                if((Integer.parseInt(data[1])<10)||(Integer.parseInt(data[1])>99)){
+                    throw new BoundaryConditionCheckException("Capacity should be between 10 and 99");
+                }
+                if((Integer.parseInt(data[2])<10)||(Integer.parseInt(data[2])>99)){
+                     throw new BoundaryConditionCheckException("Course Time should be between 10 and 99");
+                }
                 info.put(data[0],processFile(data));
+                if(info.size()>9){
+                    throw new BoundaryConditionCheckException("Number of courses can't be more than 9");
+                }
             }
             reader1.close();
         }

@@ -19,7 +19,6 @@ import java.util.Set;
  */
 
 public class StudentMgmt {
-    int cc=0;
     /**
      * This methdod does all the main computing to Schedule courses
      * @param courses This is the first parameter which stores availeble courses information
@@ -30,7 +29,6 @@ public class StudentMgmt {
      */
     public HashMap<Integer,Set<String>> scheduleCourse(HashMap<String,CourseInfo> courses,HashMap<Integer,List<String>> prefs, String conflFile,String errFile){
         HashMap<Integer,Set<String>> register = new HashMap<>();
-        int cd=0;
         for (Map.Entry<Integer, List<String>> student : prefs.entrySet()) {
             int id = student.getKey();
             List<String> pref = student.getValue();
@@ -43,28 +41,26 @@ public class StudentMgmt {
                 }
                 if (cap == 0) {
                     assigned.add("NA");
-                    if(allCapacityNull(pref, courses) || !checkTimeConflict(assigned, c, courses, conflFile, errFile, id)){
+                    // if(checkTimeConflict(assigned, c, courses, conflFile, errFile, id)){
+                    //     assigned.add("NAA");
+                    // }
+                    if(!allCapacityNull(pref, courses) && assigned.size()<=2){
                         assigned.add("NAA");
                     }
-                    if(allCapacityNull(pref, courses)&&assigned.contains("NAA")|| !checkTimeConflict(assigned, c, courses, conflFile, errFile, id)){
+                    if(allCapacityNull(pref, courses)){
+                        assigned.add("NAA");
+                    }
+                    if(allCapacityNull(pref, courses)&&assigned.contains("NAA")){
                         assigned.add("NAAA");
                     }
                 }
-                System.err.println(id+" SIZE : "+assigned.size());
-                System.err.println("assigned :"+assigned);
                 if(assigned.size()==3){
                     assigned.add(String.valueOf(calculateSatisfaction(assigned,pref)));
-                    cc++;
-                    cd++;
                     register.put(id,assigned);
                     break;
                 }
             }
-        }
-        System.out.println(register);
-        System.err.println("CAP:"+cc);
-        System.err.println("CAPd:"+cd);
-        
+        }   
         return register;
     } 
     /**
@@ -86,7 +82,7 @@ public class StudentMgmt {
                     try {
                         PrintStream pf = FileProcessor.writeOutputToFile(conflFile);
                         if(!a.equals(course)){
-                            System.out.println("Time conflict for course : "+a+" and course " +course +"for student "+id);
+                            System.out.println("Time conflict for course : "+a+" and course " +course +" for student "+id);
                         }
                         pf.close();
                     } catch (Exception e) {
@@ -97,7 +93,6 @@ public class StudentMgmt {
                     return true;
                 }   
             } catch (NullPointerException e) {
-                
             }
         }
         return false;
@@ -121,7 +116,7 @@ public class StudentMgmt {
             sat--;
         }
         result = Double.valueOf(satisfaction)/3;
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     }
     /**
@@ -133,7 +128,6 @@ public class StudentMgmt {
      */
     public boolean allCapacityNull(List<String> pref,HashMap<String,CourseInfo> courses){
         for(String s:pref){
-            System.out.println("Capacity : "+courses.get(s).getCapacity());
             if(courses.get(s).getCapacity()!=0){
                 return false;
             }

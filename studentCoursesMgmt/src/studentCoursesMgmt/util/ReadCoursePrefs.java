@@ -2,14 +2,14 @@ package studentCoursesMgmt.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class ReadCoursePrefs implements ReadFile<Integer,List<String>,List<String>>{
     //method to readcourseprefs file and store it in a hashmap.
-    public HashMap<Integer,List<String>> readFile(String file,String errFile)throws FileNotFoundException{
+    public HashMap<Integer,List<String>> readFile(String file,String errFile){
         HashMap<Integer,List<String>> data = new HashMap<Integer,List<String>>();    
         try{
             File f1 = new File(file);
@@ -18,6 +18,9 @@ public class ReadCoursePrefs implements ReadFile<Integer,List<String>,List<Strin
                 String[] s = FileProcessor.readLine(reader1).split(" ");
                 List<String> pref = processFile(s);
                 int id = Integer.parseInt(s[0]);
+                if(id<100 || id>999){
+                    throw new BoundaryConditionCheckException("Student Id should be between 100 and 999");
+                }
                 data.put(id,pref);
             }
             reader1.close();
