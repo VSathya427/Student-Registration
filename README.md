@@ -1,9 +1,3 @@
-# CS542: Assignment 1
-## Name: Sathya Vemulapalli
-
-
-Slack Days Used : 3
-
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 
@@ -121,7 +115,7 @@ Line by line provides more flexibility in the usage of the various classes from 
         : Method to process file and return generic type.
 
 
-## Running the submitted file
+## Running the file
 
 Extact the tar 
 ```bash
@@ -134,21 +128,5 @@ Then just run the ant build commands mentioned above
 
 You need to add the txt files to the extracted directory mentioned above to make sure the code can access them.
 
-
-
------------------------------------------------------------------------
-### Academic Honesty statement:
------------------------------------------------------------------------
-
-"I have done this assignment completely on my own. I have not copied
-it, nor have I given my solution to anyone else. I understand that if
-I am involved in plagiarism or cheating I will have to sign an
-official form that I have cheated and that this form will be stored in
-my official university record. I also understand that I will receive a
-grade of 0 for the involved assignment for my first offense and that I
-will receive a grade of F for the course for any additional
-offense.""
-
-Date: 10/01/2023
 
 
